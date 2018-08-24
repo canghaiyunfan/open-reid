@@ -30,7 +30,7 @@ class BaseTrainer(object):
             inputs, targets = self._parse_data(inputs)
             loss, prec1 = self._forward(inputs, targets)
 
-            losses.update(loss.data[0], targets.size(0))
+            losses.update(loss.item(), targets.size(0))
             precisions.update(prec1, targets.size(0))
 
             optimizer.zero_grad()
@@ -63,7 +63,9 @@ class Trainer(BaseTrainer):
     def _parse_data(self, inputs):
         imgs, _, pids, _ = inputs
         inputs = [Variable(imgs)]
-        targets = Variable(pids.cuda())
+        if torch.cuda.is_available():
+            pids = pids.cuda()
+        targets = Variable(pids)
         return inputs, targets
 
     def _forward(self, inputs, targets):
