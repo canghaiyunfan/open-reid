@@ -98,7 +98,9 @@ def main(args):
         best_top1 = checkpoint['best_top1']
         print("=> Start epoch {}  best top1 {:.1%}"
               .format(start_epoch, best_top1))
-    model = nn.DataParallel(model).cuda()
+    model = nn.DataParallel(model)
+    if torch.cuda.is_available():
+        model.cuda()
 
     # Distance metric
     metric = DistanceMetric(algorithm=args.dist_metric)
@@ -114,7 +116,9 @@ def main(args):
         return
 
     # Criterion
-    criterion = nn.CrossEntropyLoss().cuda()
+    criterion = nn.CrossEntropyLoss()
+    if torch.cuda.is_available():
+        criterion = criterion.cuda()
 
     # Optimizer
     if hasattr(model.module, 'base'):
