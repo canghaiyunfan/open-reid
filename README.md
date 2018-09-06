@@ -21,7 +21,7 @@ python setup.py install
 ```shell
 python examples/softmax_loss.py -d viper -b 64 -j 2 -a resnet50 --logs-dir logs/softmax-loss/viper-resnet50
 ```
-python triplet_loss.py -d viper -b 64 -j 2 -a resnet50 --logs-dir logs/softmax-loss/viper-resnet50
+python triplet_loss.py -d viper -b 64 -j 2 -a resnet50 --logs-dir logs/triplet-loss/viper-resnet50
 
 This is just a quick example. VIPeR dataset may not be large enough to train a deep neural network.
 
