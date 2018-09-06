@@ -24,6 +24,7 @@ class TripletLoss(nn.Module):
         for i in range(n):
             dist_ap.append(dist[i][mask[i]].max())
             dist_an.append(dist[i][mask[i] == 0].min())
+        #Zero-dimensional tensor concatenation problem
         # dist_ap = torch.cat(dist_ap)
         # dist_an = torch.cat(dist_an)
         dist_ap = torch.stack(dist_ap)
