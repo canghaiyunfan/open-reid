@@ -124,7 +124,9 @@ def main(args):
         return
 
     # Criterion
-    criterion = TripletLoss(margin=args.margin).cuda()
+    criterion = TripletLoss(margin=args.margin)
+    if torch.cuda.is_available():
+        criterion = criterion.cuda()
 
     # Optimizer
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr,
