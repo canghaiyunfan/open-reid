@@ -33,6 +33,11 @@ class BaseTrainer(object):
             losses.update(loss.item(), targets.size(0))
             precisions.update(prec1, targets.size(0))
 
+            # 在实现梯度反向传递时主要需要三步：
+            #
+            # 初始化梯度值：net.zero_grad()
+            # 反向求解梯度：loss.backward()
+            # 更新参数：optimizer.step()
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
